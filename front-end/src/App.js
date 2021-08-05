@@ -12,7 +12,7 @@ const App = ()=>{
 
   useEffect(()=>{
     axios
-      .get('hettp://localhost:3000/birds')
+      .get('http://localhost:3000/birds')
       .then((response)=>{
         setBirds(response.data)
       })
@@ -50,20 +50,62 @@ const App = ()=>{
     })
     event.currentTarget.reset()
   }
+  const editSubmit = (event, birdData) =>{
+    event.preventDefault()
+    axios.put(
+      'http://localhost:3000/birds/:id',
+      {
+        time:newTimeBird,
+        place:newPlaceBird,
+        species:newSpeciesBird,
+        image:newImageBird,
+      }
+    ).then(()=>{
+      axios
+        .get('http://localhost:3000/birds/:id')
+        .then((response)=>{
+          setBirds(response.data)
+        })
+    })
+    event.currentTarget.reset()
+
+  }
+  const deleteBird = (birdData) =>{
+    axios
+      .delete(`http://localhost:3000/birds/${birdData._id}`)
+      .then(()=>{
+        axios
+          .get('http://localhost:3000/birds')
+          .then((response)=>{
+            setBirds(response.data)
+          })
+      })
+  }
   
   return(
     <>
     <h1>I think I saw a little bird</h1>
     <form onSubmit={(event)=> {submitForm(event)}}>
-      Time:<input type="text" placeholder="Time" name="time" onChange={newTime}/>
-      Place:<input type="text" placeholder="place" name="place" onChange={newPlace}/>
-      Species:<input type="text" placeholder="species" name="species" onChange={newSpecies}/>
-      Image:<input type="url" placeholder="image url" name="image" onChange={newImage}/>
+      Time:<input type="text" placeholder="Time"  onChange={newTime}/>
+      Place:<input type="text" placeholder="place"  onChange={newPlace}/>
+      Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
+      Image:<input type="url" placeholder="image url"  onChange={newImage}/>
       <input type="submit" value="ADD NEW BIRDY"/>
-    </form>
+    </form><br/>
     </>
 
   )
 }
 
 export default App;
+
+{/* <h2>Edit form</h2>
+    <details>
+      <form onSubmit={(event)=>{editSubmit}}>
+      Time:<input type="text" placeholder="Time" onChange={newTime}/>
+      Place:<input type="text" placeholder="place"  onChange={newPlace}/>
+      Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
+      Image:<input type="url" placeholder="image url"  onChange={newImage}/>
+      <input type="submit" value="Edit this birdy"/>
+      </form>
+    </details> */}
