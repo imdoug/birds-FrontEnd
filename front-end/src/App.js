@@ -84,9 +84,6 @@ const App = ()=>{
       })
   }
 
-
-
-
   return(
     <>
     <h1>I think I saw a little bird</h1>
@@ -99,10 +96,9 @@ const App = ()=>{
 
     </form><br/>
 
-
     <div className="birdBox">
         {allBirds.map((bird) => {
-            return <BirdCard bird={bird} />
+            return <BirdCard bird={bird} deleteBird={deleteBird}/>
         })}
     </div>
 
