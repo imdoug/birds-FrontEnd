@@ -98,7 +98,7 @@ const App = ()=>{
 
     <div className="birdBox">
         {allBirds.map((bird) => {
-            return <BirdCard bird={bird} />
+            return <BirdCard bird={bird} deleteBird={deleteBird}/>
         })}
     </div>
 
