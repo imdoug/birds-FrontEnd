@@ -1,17 +1,25 @@
 import React from 'react'
-import axios from 'axios'
 
 const EditModal = (props) => {
+
+    const closeEditModal = () => {
+        document.querySelector('.modalBackground').classList.toggle('hidden')
+        props.setEditBird({})
+    }
+
     return(
-        <div className="modal hidden">
-        <h2>Edit form</h2>
-            <form onSubmit={(event)=>{props.editSubmit(event,props.editId)}}>
-                Time:<input type="text" placeholder="Time" onChange={props.newTime}/>
-                Place:<input type="text" placeholder="place"  onChange={props.newPlace}/>
-                Species:<input type="text" placeholder="species"  onChange={props.newSpecies}/>
-                Image:<input type="url" placeholder="image url"  onChange={props.newImage}/>
-                <input type="submit" value="Edit this birdy"/>
-            </form>
+        <div className="modalBackground hidden">
+            <div className="modal">
+                <p id="modalClose" onClick={closeEditModal}>x</p>
+                <h2>Edit form</h2>
+                <form onSubmit={(event)=>{props.editSubmit(event,props.editBird)}}>
+                    Date:<input type="text" placeholder={props.editBird.time} onChange={props.newTime}/>
+                    Place:<input type="text" placeholder={props.editBird.place}  onChange={props.newPlace}/>
+                    Species:<input type="text" placeholder={props.editBird.species}  onChange={props.newSpecies}/>
+                    Image:<input type="url" placeholder={props.editBird.image}  onChange={props.newImage}/>
+                    <input type="submit" value="Edit this birdy"/>
+                </form>
+            </div>
         </div>
     )
 }

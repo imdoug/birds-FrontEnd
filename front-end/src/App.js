@@ -11,7 +11,7 @@ const App = ()=>{
   const [newSpeciesBird, setNewSpecies]= useState('')
   const [newImageBird, setNewImage]= useState('')
   const [allBirds, setBirds] = useState([])
-  const [editId, setEditId] = useState('')
+  const [editBird, setEditBird] = useState({})
 
   useEffect(()=>{
     axios
@@ -55,19 +55,23 @@ const App = ()=>{
   }
 
   const openEditModal = (bird) => {
-    document.querySelector('.modal').classList.toggle('hidden')
-    setEditId(bird._id)
+    document.querySelector('.modalBackground').classList.toggle('hidden')
+    setEditBird(bird)
+    setNewTime('')
+    setNewImage('')
+    setNewPlace('')
+    setNewSpecies('')
   }
 
-  const editSubmit = (event, birdId) =>{
+  const editSubmit = (event, bird) =>{
     event.preventDefault()
     axios.put(
-      `http://localhost:3000/birds/${birdId}`,
+      `http://localhost:3000/birds/${bird._id}`,
       {
-        time:newTimeBird,
-        place:newPlaceBird,
-        species:newSpeciesBird,
-        image:newImageBird,
+        time:newTimeBird || bird.time,
+        place:newPlaceBird || bird.place,
+        species:newSpeciesBird || bird.species,
+        image:newImageBird || bird.image,
       }
     ).then(()=>{
       axios
@@ -77,9 +81,10 @@ const App = ()=>{
         })
     })
     event.currentTarget.reset()
-    setEditId('')
-
+    setEditBird({})
+    document.querySelector(".modalBackground").classList.toggle('hidden')
   }
+
   const deleteBird = (birdData) =>{
     axios
       .delete(`http://localhost:3000/birds/${birdData._id}`)
@@ -96,19 +101,22 @@ const App = ()=>{
     <>
     <h1>The GodFeather </h1>
     <form onSubmit={(event)=> {submitForm(event)}}>
-      Time:<input type="text" placeholder="Time"  onChange={newTime}/>
+      Date:<input type="text" placeholder="Time"  onChange={newTime}/>
       Place:<input type="text" placeholder="place"  onChange={newPlace}/>
       Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
       Image:<input type="url" placeholder="image url"  onChange={newImage}/>
       <input type="submit" value="ADD NEW BIRDY"/>
     </form><br/>
-    <div className="birdBox">
-        {allBirds.map((bird) => {
-            return <BirdCard
-                bird={bird}
-                deleteBird={deleteBird}
-                openEditModal={openEditModal}/>
-        })}
+    <div className="container-master">
+        <div className="birdBox">
+            {allBirds.map((bird,index) => {
+                return <BirdCard key={index}
+                    bird={bird}
+                    deleteBird={deleteBird}
+                    openEditModal={openEditModal}
+                    />
+            })}
+        </div>
     </div>
     <EditModal
         newTime={newTime}
@@ -116,14 +124,15 @@ const App = ()=>{
         newSpecies={newSpecies}
         newImage={newImage}
         editSubmit={editSubmit}
-        editId={editId}/>
+        editBird={editBird}
+        setEditBird={setEditBird}/>
     </>
   )
 }
 
 export default App;
 
-{/* <h2>Edit form</h2>
+/* <h2>Edit form</h2>
     <details>
       <form onSubmit={(event)=>{editSubmit}}>
       Time:<input type="text" placeholder="Time" onChange={newTime}/>
@@ -132,4 +141,4 @@ export default App;
       Image:<input type="url" placeholder="image url"  onChange={newImage}/>
       <input type="submit" value="Edit this birdy"/>
       </form>
-    </details> */}
+    </details> */
