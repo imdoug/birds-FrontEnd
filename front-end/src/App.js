@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import axios from "axios"
+import BirdCard from "./components/BirdCard"
 
 const App = ()=>{
   const [newTimeBird, setNewTime] = useState("")
@@ -30,7 +31,7 @@ const App = ()=>{
   const newImage = (event) =>{
     setNewImage(event.target.value)
   }
-  
+
   const submitForm = (event)=>{
     event.preventDefault()
     axios.post(
@@ -50,6 +51,7 @@ const App = ()=>{
     })
     event.currentTarget.reset()
   }
+
   const editSubmit = (event, birdData) =>{
     event.preventDefault()
     axios.put(
@@ -82,6 +84,9 @@ const App = ()=>{
       })
   }
   
+
+
+
   return(
     <>
     <h1>I think I saw a little bird</h1>
@@ -91,9 +96,17 @@ const App = ()=>{
       Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
       Image:<input type="url" placeholder="image url"  onChange={newImage}/>
       <input type="submit" value="ADD NEW BIRDY"/>
-    </form><br/>
-    </>
 
+    </form><br/>
+
+
+    <div className="birdBox">
+        {allBirds.map((bird) => {
+            return <BirdCard bird={bird} />
+        })}
+    </div>
+
+    </>
   )
 }
 
