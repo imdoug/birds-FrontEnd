@@ -9,6 +9,7 @@ const BirdCard = (props) => {
             <h5>Time: {props.bird.time}</h5>
             <h5>Location: {props.bird.place}</h5>
             <button onClick={()=>{props.deleteBird(props.bird)}}>Delete</button>
+            <button onClick={()=>{props.openEditModal(props.bird)}}>Edit</button>
         </div>
     )
 }

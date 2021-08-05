@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import axios from "axios"
 import BirdCard from "./components/BirdCard"
+import EditModal from "./components/EditModal"
 
 const App = ()=>{
   const [newTimeBird, setNewTime] = useState("")
@@ -10,6 +11,7 @@ const App = ()=>{
   const [newSpeciesBird, setNewSpecies]= useState('')
   const [newImageBird, setNewImage]= useState('')
   const [allBirds, setBirds] = useState([])
+  const [editId, setEditId] = useState('')
 
   useEffect(()=>{
     axios
@@ -52,10 +54,15 @@ const App = ()=>{
     event.currentTarget.reset()
   }
 
-  const editSubmit = (event, birdData) =>{
+  const openEditModal = (bird) => {
+    document.querySelector('.modal').classList.toggle('hidden')
+    setEditId(bird._id)
+  }
+
+  const editSubmit = (event, birdId) =>{
     event.preventDefault()
     axios.put(
-      'http://localhost:3000/birds/:id',
+      `http://localhost:3000/birds/${birdId}`,
       {
         time:newTimeBird,
         place:newPlaceBird,
@@ -64,12 +71,13 @@ const App = ()=>{
       }
     ).then(()=>{
       axios
-        .get('http://localhost:3000/birds/:id')
+        .get('http://localhost:3000/birds')
         .then((response)=>{
           setBirds(response.data)
         })
     })
     event.currentTarget.reset()
+    setEditId('')
 
   }
   const deleteBird = (birdData) =>{
@@ -98,10 +106,20 @@ const App = ()=>{
 
     <div className="birdBox">
         {allBirds.map((bird) => {
-            return <BirdCard bird={bird} deleteBird={deleteBird}/>
+            return <BirdCard
+                bird={bird}
+                deleteBird={deleteBird}
+                openEditModal={openEditModal}/>
         })}
     </div>
 
+    <EditModal
+        newTime={newTime}
+        newPlace={newPlace}
+        newSpecies={newSpecies}
+        newImage={newImage}
+        editSubmit={editSubmit}
+        editId={editId}/>
     </>
   )
 }
