@@ -84,9 +84,6 @@ const App = ()=>{
       })
   }
   
-
-
-
   return(
     <>
     <h1>I think I saw a little bird</h1>
@@ -98,7 +95,6 @@ const App = ()=>{
       <input type="submit" value="ADD NEW BIRDY"/>
 
     </form><br/>
-
 
     <div className="birdBox">
         {allBirds.map((bird) => {
