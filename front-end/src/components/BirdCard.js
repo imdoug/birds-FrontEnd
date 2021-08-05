@@ -8,7 +8,7 @@ const BirdCard = (props) => {
             <h3>{props.bird.species}</h3>
             <h5>Time: {props.bird.time}</h5>
             <h5>Location: {props.bird.place}</h5>
-
+            <button onClick={()=>{props.deleteBird(props.bird)}}>Delete</button>
         </div>
     )
 }
