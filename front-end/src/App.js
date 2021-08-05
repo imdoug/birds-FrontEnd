@@ -94,16 +94,14 @@ const App = ()=>{
 
   return(
     <>
-    <h1>I think I saw a little bird</h1>
+    <h1>The GodFeather </h1>
     <form onSubmit={(event)=> {submitForm(event)}}>
       Time:<input type="text" placeholder="Time"  onChange={newTime}/>
       Place:<input type="text" placeholder="place"  onChange={newPlace}/>
       Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
       Image:<input type="url" placeholder="image url"  onChange={newImage}/>
       <input type="submit" value="ADD NEW BIRDY"/>
-
     </form><br/>
-
     <div className="birdBox">
         {allBirds.map((bird) => {
             return <BirdCard
@@ -112,7 +110,6 @@ const App = ()=>{
                 openEditModal={openEditModal}/>
         })}
     </div>
-
     <EditModal
         newTime={newTime}
         newPlace={newPlace}
