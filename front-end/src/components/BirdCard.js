@@ -3,13 +3,14 @@ import axios from 'axios'
 
 const BirdCard = (props) => {
     return (
-            <div className="birdCard">
-                <img className="cardImg" src={props.bird.image} />
-                <h3>{props.bird.species}</h3>
-                <h5>Time: {props.bird.time}</h5>
-                <h5>Location: {props.bird.place}</h5>
-                <button onClick={()=>{props.deleteBird(props.bird)}}>Delete</button>
-            </div>
+        <div className="birdCard">
+            <img className="cardImg" src={props.bird.image} />
+            <h3>{props.bird.species}</h3>
+            <h5>Time: {props.bird.time}</h5>
+            <h5>Location: {props.bird.place}</h5>
+            <button onClick={()=>{props.deleteBird(props.bird)}}>Delete</button>
+            <button onClick={()=>{props.openEditModal(props.bird)}}>Edit</button>
+        </div>
     )
 }
 
