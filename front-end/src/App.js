@@ -1,9 +1,10 @@
-
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import './App.css';
 import axios from "axios"
 import BirdCard from "./components/BirdCard"
 import EditModal from "./components/EditModal"
+import BirdAnimation from "./components/birdAnimation"
+
 
 const App = ()=>{
   const [newTimeBird, setNewTime] = useState("")
@@ -109,14 +110,16 @@ const App = ()=>{
 
   return(
     <>
-    <h1>The GodFeather </h1>
+    <img className="logo" src="https://i.ibb.co/r0dQrCd/The-God-Feather-1.png"/>
+    <BirdAnimation /> 
+    <img className="feather-left" src="https://www.pngarts.com/files/3/Bird-Feather-Transparent-Image.png"/>
     <button id="createModalOpener" onClick={toggleCreateModal}>ADD A BIRDY</button>
     <form id="createModal" className="hidden" onSubmit={(event)=> {submitForm(event)}}>
       Date:<input type="text" placeholder="Time"  onChange={newTime}/>
       Place:<input type="text" placeholder="place"  onChange={newPlace}/>
       Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
       Image:<input type="url" placeholder="image url"  onChange={newImage}/>
-      <input type="submit" value="ADD NEW BIRDY"/>
+      <input type="submit" value="ADD BIRDY"/>
     </form><br/>
     <div className="container-master">
         <div className="birdBox">
@@ -129,6 +132,7 @@ const App = ()=>{
             })}
         </div>
     </div>
+    <footer>&copy; 2021 Doug Moreira & Nolo Marsh All rights reserved.</footer>
     <EditModal
         newTime={newTime}
         newPlace={newPlace}
@@ -142,14 +146,3 @@ const App = ()=>{
 }
 
 export default App;
-
-/* <h2>Edit form</h2>
-    <details>
-      <form onSubmit={(event)=>{editSubmit}}>
-      Time:<input type="text" placeholder="Time" onChange={newTime}/>
-      Place:<input type="text" placeholder="place"  onChange={newPlace}/>
-      Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
-      Image:<input type="url" placeholder="image url"  onChange={newImage}/>
-      <input type="submit" value="Edit this birdy"/>
-      </form>
-    </details> */
