@@ -10,8 +10,8 @@ const BirdCard = (props) => {
                 <h5>Location: {props.bird.place}</h5>
             </div>
             <div className="btnBox">
-                <button onClick={()=>{props.deleteBird(props.bird)}}>Delete</button>
-                <button onClick={()=>{props.openEditModal(props.bird)}}>Edit</button>
+                <button onClick={()=>{props.deleteBird(props.bird)}}>DELETE</button>
+                <button onClick={()=>{props.openEditModal(props.bird)}}>EDIT</button>
             </div>
         </div>
     )
