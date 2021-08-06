@@ -99,7 +99,7 @@ const App = ()=>{
 
   return(
     <>
-    <h1>The GodFeather </h1>
+    <h1>The GodFeather</h1>
     <form onSubmit={(event)=> {submitForm(event)}}>
       Date:<input type="text" placeholder="Time"  onChange={newTime}/>
       Place:<input type="text" placeholder="place"  onChange={newPlace}/>
