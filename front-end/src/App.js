@@ -33,6 +33,12 @@ const App = ()=>{
   const newImage = (event) =>{
     setNewImage(event.target.value)
   }
+  const clearStates = () => {
+      setNewTime('')
+      setNewImage('')
+      setNewPlace('')
+      setNewSpecies('')
+  }
 
   const submitForm = (event)=>{
     event.preventDefault()
@@ -52,15 +58,13 @@ const App = ()=>{
         })
     })
     event.currentTarget.reset()
+    toggleCreateModal()
   }
 
   const openEditModal = (bird) => {
     document.querySelector('.modalBackground').classList.toggle('hidden')
     setEditBird(bird)
-    setNewTime('')
-    setNewImage('')
-    setNewPlace('')
-    setNewSpecies('')
+    clearStates()
   }
 
   const editSubmit = (event, bird) =>{
@@ -97,10 +101,17 @@ const App = ()=>{
       })
   }
 
+  const toggleCreateModal = () => {
+      document.querySelector('#createModal').classList.toggle('hidden')
+      document.querySelector('#createModalOpener').classList.toggle('hidden')
+      clearStates()
+  }
+
   return(
     <>
     <h1>The GodFeather </h1>
-    <form onSubmit={(event)=> {submitForm(event)}}>
+    <button id="createModalOpener" onClick={toggleCreateModal}>ADD A BIRDY</button>
+    <form id="createModal" className="hidden" onSubmit={(event)=> {submitForm(event)}}>
       Date:<input type="text" placeholder="Time"  onChange={newTime}/>
       Place:<input type="text" placeholder="place"  onChange={newPlace}/>
       Species:<input type="text" placeholder="species"  onChange={newSpecies}/>
